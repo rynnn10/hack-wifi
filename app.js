@@ -13,7 +13,11 @@ async function startScan() {
   try {
     // Mengambil data dari ESP8266 (Pastikan endpoint /scan-json ada di .ino)
     // Jika testing di komputer tanpa ESP, ini akan gagal, jadi kita pakai dummy data di catch block untuk demo
-    const response = await fetch("/scan-json", { timeout: 8000 });
+    const response = await fetch("http://192.168.4.1/scan-json", {
+      method: "GET",
+      mode: "cors", // Penting agar browser tau ini lintas domain
+      timeout: 8000,
+    });
     if (!response.ok) throw new Error("ESP Busy");
     const data = await response.json();
     renderNetworks(data.networks);
