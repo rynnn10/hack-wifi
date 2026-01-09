@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#0d1117" />
+    <title>NetGuardian Control</title>
+
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="hud-header">
+        <div class="brand">
+          <span class="icon">🛡️</span>
+          <div class="text">
+            <h1>NET_GUARDIAN</h1>
+            <small>SECURE MONITORING SYSTEM</small>
+          </div>
+        </div>
+        <div class="status-indicator online">
+          <span class="blink">●</span> LIVE
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <div class="card stat-card">
+          <h3>NETWORKS</h3>
+          <div class="value" id="total-nets">0</div>
+        </div>
+        <div class="card stat-card">
+          <h3>STRONGEST</h3>
+          <div class="value small" id="best-signal">--</div>
+        </div>
+        <div class="card stat-card">
+          <h3>CHANNEL</h3>
+          <div class="value" id="top-channel">--</div>
+        </div>
+      </section>
+
+      <main>
+        <div class="controls">
+          <button id="scan-btn" onclick="startScan()">
+            <span class="btn-text">INITIATE SCAN</span>
+            <span class="btn-glitch"></span>
+          </button>
+        </div>
+
+        <div id="loader" class="scanner-line hidden"></div>
+
+        <div class="network-list" id="network-list">
+          <div class="empty-state">
+            <p>> WAITING FOR COMMAND...</p>
+            <p>> SYSTEM READY.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      // Registrasi Service Worker untuk PWA
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("sw.js")
+          .then(() => console.log("Service Worker Registered"));
+      }
+    </script>
+  </body>
+</html>

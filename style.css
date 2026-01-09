@@ -1,0 +1,229 @@
+:root {
+  --bg-dark: #050505;
+  --panel-bg: rgba(22, 27, 34, 0.85);
+  --neon-green: #00ff41;
+  --neon-blue: #00f3ff;
+  --text-main: #e6edf3;
+  --text-dim: #8b949e;
+  --border: 1px solid rgba(48, 54, 61, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace; /* Font Hacker */
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #111a22 0%,
+    #050505 100%
+  );
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 600px; /* Mobile First View */
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 80px;
+}
+
+/* Header */
+.hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--neon-green);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+.brand small {
+  font-size: 0.6rem;
+  color: var(--neon-blue);
+  letter-spacing: 1px;
+}
+
+.status-indicator {
+  font-size: 0.8rem;
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.blink {
+  animation: blinker 1.5s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: var(--panel-bg);
+  border: 1px solid #30363d;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card h3 {
+  margin: 0 0 5px 0;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+}
+.stat-card .value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--neon-blue);
+}
+.stat-card .value.small {
+  font-size: 0.8rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Network List Items */
+.network-card {
+  background: linear-gradient(
+    90deg,
+    rgba(22, 27, 34, 1) 0%,
+    rgba(13, 17, 23, 0.5) 100%
+  );
+  border-left: 3px solid var(--text-dim);
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.network-card.secure {
+  border-left-color: var(--neon-green);
+}
+.network-card.weak {
+  border-left-color: #ff3333;
+}
+
+.network-card:hover {
+  transform: translateX(5px);
+  box-shadow: -5px 0 15px rgba(0, 255, 65, 0.1);
+}
+
+.net-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.ssid {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.rssi {
+  font-size: 0.8rem;
+  color: var(--neon-blue);
+}
+
+.net-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+/* Signal Bar Visualization */
+.signal-bar-bg {
+  width: 100%;
+  height: 4px;
+  background: #333;
+  margin-top: 10px;
+  border-radius: 2px;
+}
+.signal-bar-fill {
+  height: 100%;
+  background: var(--neon-green);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 1s ease;
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Button */
+#scan-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  padding: 15px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.2s;
+  margin-bottom: 20px;
+}
+
+#scan-btn:active {
+  background: var(--neon-green);
+  color: black;
+}
+
+/* Loading Animation */
+.scanner-line {
+  height: 2px;
+  background: var(--neon-blue);
+  width: 0%;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px var(--neon-blue);
+  transition: width 0.2s;
+}
+.loading .scanner-line {
+  width: 100%;
+  animation: scan 2s infinite;
+}
+
+@keyframes scan {
+  0% {
+    width: 0%;
+    margin-left: 0;
+  }
+  50% {
+    width: 100%;
+    margin-left: 0;
+  }
+  100% {
+    width: 0%;
+    margin-left: 100%;
+  }
+}
+
+.hidden {
+  display: none;
+}
